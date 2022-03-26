@@ -10,9 +10,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\YZAERU_SG1_21_22_2.Data\YZAERU_SG1_21_22_2.Data.csproj" />
-    <ProjectReference Include="..\YZAERU_SG1_21_22_2.Models\YZAERU_SG1_21_22_2.Models.csproj" />
-  </ItemGroup>
-
 </Project>
