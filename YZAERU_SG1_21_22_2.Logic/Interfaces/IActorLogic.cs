@@ -18,6 +18,8 @@ namespace YZAERU_SG1_21_22_2.Logic.Interfaces
 
         Actor UpdatActor(Actor actor);
 
-        public bool DeletActor(int actorId);
+        bool DeletActor(int actorId);
+
+        IList<Actor> GetAllActress();
     }
 }

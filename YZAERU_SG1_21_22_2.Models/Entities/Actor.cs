@@ -29,10 +29,5 @@ namespace YZAERU_SG1_21_22_2.Models.Entities
         [JsonIgnore]
         [NotMapped]
         public virtual ICollection<ActorFilm> ActorFilms { get; }
-
-        public override string ToString()
-        {
-            return $"Id: {this.Id} - Actor name: {this.Name} - Gender: {this.Gender}";
-        }
     }
 }

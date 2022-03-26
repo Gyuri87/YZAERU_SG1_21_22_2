@@ -23,5 +23,7 @@ namespace YZAERU_SG1_21_22_2.Logic.Interfaces
         Film InsertFilm(Film film);
 
         Film UpdateFilm(Film film);
+
+        IList<Film> GetMostLongestMovie();
     }
 }

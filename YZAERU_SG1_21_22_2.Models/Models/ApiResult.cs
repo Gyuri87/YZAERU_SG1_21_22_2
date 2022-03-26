@@ -14,7 +14,7 @@ namespace YZAERU_SG1_21_22_2.Models.Models
         {
         }
 
-        public ApiResult(bool isSuccess)
+        public ApiResult(bool isSuccess = true)
         {
             IsSuccess = isSuccess;
         }
