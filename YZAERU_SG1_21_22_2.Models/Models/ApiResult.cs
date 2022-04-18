@@ -10,6 +10,8 @@ namespace YZAERU_SG1_21_22_2.Models.Models
     {
         public bool IsSuccess { get; set; }
 
+        public List<string> Messages { get; set; }
+
         public ApiResult()
         {
         }
