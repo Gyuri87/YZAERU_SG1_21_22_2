@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using YZAERU_SG1_21_22_2.Logic.Interfaces;
 using YZAERU_SG1_21_22_2.Models.Entities;
 using YZAERU_SG1_21_22_2.Models.Models;
@@ -22,7 +20,7 @@ namespace YZAERU_SG1_21_22_2.Endpoint.Controllers
 
         // /api/Film/List
         [HttpGet]
-        [ActionName("List")]
+        [ActionName("GetAll")]
         public IList<Film> GetFilms()
         {
             return filmLogic.GetAllFilms();

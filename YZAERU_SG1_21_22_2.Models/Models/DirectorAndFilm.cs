@@ -8,25 +8,30 @@ namespace YZAERU_SG1_21_22_2.Models.Models
 {
     public class DirectorAndFilm
     {
-        public DirectorAndFilm(string directorName, string filmTitle)
+        public DirectorAndFilm(int directorId, string directorName, int filmId, string filmTitle, int filmLength)
         {
+            this.FilmId = filmId;
+            this.DirectorId = directorId;
             this.DirectorName = directorName;
             this.FilmTitle = filmTitle;
+            this.FilmLength = filmLength;
         }
 
         public DirectorAndFilm()
         {
         }
 
+        public int FilmId { get; set; }
+        public int DirectorId { get; set; }
         public string DirectorName { get; set; }
 
         public string FilmTitle { get; set; }
 
-        public int Count { get; set; }
+        public int FilmLength { get; set; }
 
         public override string ToString()
         {
-            return $"Driector name: {this.DirectorName} - Movie title: {this.FilmTitle} - Count of Film: {this.Count}";
+            return $"Driector name: {this.DirectorName} - DirectorId: {this.DirectorId} - FilmId: {this.FilmId} - Movie title: {this.FilmTitle} - Length: {this.FilmLength}";
         }
 
         public override bool Equals(object obj)
@@ -39,11 +44,6 @@ namespace YZAERU_SG1_21_22_2.Models.Models
             }
 
             return false;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Count;
         }
     }
 }

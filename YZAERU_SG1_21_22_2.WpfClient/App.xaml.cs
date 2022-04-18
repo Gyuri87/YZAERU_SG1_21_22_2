@@ -21,7 +21,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient
             SimpleIocAsServiceLocator.Instance.Register<IFilmEditorService, FilmEditorViaWindowService>();
             SimpleIocAsServiceLocator.Instance.Register<IFilmDisplayService, FilmDisplayService>();
             SimpleIocAsServiceLocator.Instance.Register(() => Messenger.Default);
-            SimpleIocAsServiceLocator.Instance.Register<IFilmHandlerService, FilmHandlerService>();
+            SimpleIocAsServiceLocator.Instance.Register<IFilmHandlerService, DirectorHandlerService>();
         }
     }
 }

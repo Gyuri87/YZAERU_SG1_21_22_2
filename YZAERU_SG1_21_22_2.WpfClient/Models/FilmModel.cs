@@ -36,16 +36,26 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Models
             set { directorId = value; }
         }
 
+        private string directorName;
+
+        public string DirectorName
+        {
+            get { return directorName; }
+            set { directorName = value; }
+        }
+
+
         public FilmModel()
         {
         }
 
-        public FilmModel(int id, string title, int lenght, int directorId)
+        public FilmModel(int id, string title, int lenght, int directorId, string directorName)
         {
             this.id = id;
             this.title = title;
             this.lenght = lenght;
             this.directorId = directorId;
+            this.directorName = directorName;
         }
 
         public FilmModel(FilmModel film)
@@ -58,7 +68,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Models
 
         public override string ToString()
         {
-            return $"id: {id}, title: {title}, lenght: {lenght}, directorId: {directorId}";
+            return $"id: {id}, title: {title}, lenght: {lenght}, directorId: {directorId}, actorName: {this.directorName}";
         }
     }
 }

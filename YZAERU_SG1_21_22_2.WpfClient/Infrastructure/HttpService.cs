@@ -33,6 +33,18 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Infrastructure
             }
         }
 
+
+        public List<T> GetAllActorsFilms<T>(string actionName = null)
+        {
+            using (var client = new HttpClient())
+            {
+                InitClient(client);
+
+                var response = client.GetAsync(GetActionName(actionName ?? nameof(GetAllActorsFilms))).GetAwaiter().GetResult(); // Block here
+                return JsonSerializer.Deserialize<List<T>>(response.Content.ReadAsStringAsync().GetAwaiter().GetResult(), serializerOptions);
+            }
+        }
+
         public T Get<T, TKey>(TKey id, string actionName = null)
         {
             using (var client = new HttpClient())

@@ -9,14 +9,14 @@ using YZAERU_SG1_21_22_2.WpfClient.Models;
 
 namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
 {
-    public class FilmHandlerService : IFilmHandlerService
+    public class DirectorHandlerService : IFilmHandlerService
     {
         readonly IMessenger messenger;
         readonly IFilmEditorService editorService;
         readonly IFilmDisplayService displayService;
         HttpService httpService;
 
-        public FilmHandlerService(IMessenger messenger, IFilmEditorService editorService, IFilmDisplayService displayService)
+        public DirectorHandlerService(IMessenger messenger, IFilmEditorService editorService, IFilmDisplayService displayService)
         {
             this.messenger = messenger;
             this.editorService = editorService;
@@ -107,8 +107,9 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
         {
             var films = httpService.GetAll<Film>();
 
-            return films.Select(x => new FilmModel(x.Id, x.Title , x.Length, x.DirectorId)).ToList();
+            return films.Select(x => new FilmModel(x.Id, x.Title , x.Length, x.Id, "")).ToList();
         }
+
 
         public void ModifyFilm(IList<FilmModel> collection, FilmModel film)
         {

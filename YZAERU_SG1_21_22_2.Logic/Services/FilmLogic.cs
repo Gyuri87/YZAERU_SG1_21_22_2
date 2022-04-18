@@ -57,7 +57,7 @@ namespace YZAERU_SG1_21_22_2.Logic.Services
             var list = from film in this.filmRepository.ReadAll()
                        join director in this.directorRepository.ReadAll()
                            on film.DirectorId equals director.Id
-                       select new DirectorAndFilm(director.Name, film.Title);
+                       select new DirectorAndFilm(director.Id, director.Name, film.Id, film.Title, film.Length);
 
             return list.ToList();
         }
