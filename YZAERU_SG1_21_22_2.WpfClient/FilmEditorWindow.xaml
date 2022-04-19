@@ -3,10 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:YZAERU_SG1_21_22_2.WpfClient"
+        xmlns:ViewModels="clr-namespace:YZAERU_SG1_21_22_2.WpfClient.ViewModels"
         mc:Ignorable="d"
-        Title="FilmEditorWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="FilmEditorWindow" Height="300" Width="300" Loaded="WindowLoaded">
+    <Window.Resources>
+        <ViewModels:FilmEditorVM x:Key="VM" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource VM}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Label Content="Rendező" HorizontalAlignment="Right" Grid.Row="0" />
+        <Label Content="Cím" HorizontalAlignment="Right" Grid.Row="1" />
+        <Label Content="Hossz" HorizontalAlignment="Right" Grid.Row="2" />
+
+        <ComboBox Margin="3" ItemsSource="{Binding AvailableDirectors}" SelectedItem="{Binding SelectedDirector}" Grid.Row="0" Grid.Column="1" IsEnabled="{Binding EditEnabled}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBox Margin="3" Text="{Binding CurrentFilm.Title}" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding EditEnabled}" />
+        <TextBox Margin="3" Text="{Binding CurrentFilm.Length}" Grid.Row="2" Grid.Column="1" IsEnabled="{Binding EditEnabled}" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="3" Grid.ColumnSpan="2">
+            <Button Margin="5" Content="OK" IsDefault="True" Click="OkClick" MinWidth="50" />
+            <Button Margin="5" Content="Cancel" IsCancel="True" Click="CancelClick" MinWidth="50" Visibility="{Binding CancelButtonVisibility}" />
+        </StackPanel>
     </Grid>
 </Window>

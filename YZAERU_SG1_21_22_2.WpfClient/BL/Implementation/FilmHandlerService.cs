@@ -39,7 +39,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
                     {
                         Id = newFilm.Id,
                         DirectorId = newFilm.DirectorId,
-                        Lenght = newFilm.Lenght,
+                        Length = newFilm.Length,
                         Title = newFilm.Title
                     });
 
@@ -107,7 +107,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
         {
             var films = httpService.GetAll<Film>();
 
-            return films.Select(x => new FilmModel(x.Id, x.Title , x.Length, x.Id, "")).ToList();
+            return films.Select(x => new FilmModel(x.Id, x.Title , x.Length, x.DirectorId, x.DirectorName)).ToList();
         }
 
 
@@ -126,7 +126,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
                     {
                         Id = editedFilm.Id, // This prop cannot be changed
                         Title = editedFilm.Title,
-                        Lenght = editedFilm.Lenght,
+                        Length = editedFilm.Length,
                         DirectorId = editedFilm.DirectorId
                     });
 
@@ -154,6 +154,13 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
         public void ViewFilm(FilmModel film)
         {
             displayService.Display(film);
+        }
+
+        public IList<DirectorModel> GetAllDirectors()
+        {
+            var directors = httpService.GetAllDirectors<Director>();
+
+            return directors.Select(x => new DirectorModel(x.Id, x.Name)).ToList();
         }
     }
 }

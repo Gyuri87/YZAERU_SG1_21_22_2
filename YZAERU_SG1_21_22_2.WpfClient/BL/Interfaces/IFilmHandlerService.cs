@@ -11,5 +11,6 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Interfaces
         void ViewFilm(FilmModel film);
 
         IList<FilmModel> GetAll();
+        IList<DirectorModel> GetAllDirectors();
     }
 }

@@ -25,6 +25,7 @@ namespace YZAERU_SG1_21_22_2.Models.Entities
         public int Length { get; set; }
 
         public int DirectorId { get; set; }
+        public string DirectorName { get; set; }
 
         [JsonIgnore]
         [NotMapped]
@@ -36,7 +37,7 @@ namespace YZAERU_SG1_21_22_2.Models.Entities
 
         public override string ToString()
         {
-            return $"Id: {this.Id} - Title: {this.Title} - Length: {this.Length} - Id of director: {this.DirectorId}";
+            return $"Id: {this.Id} - Title: {this.Title} - Length: {this.Length} - DirectorId: {this.DirectorId} - DirectorName: {this.Director.Name}";
         }
 
         public override bool Equals(object obj)

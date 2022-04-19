@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YZAERU_SG1_21_22_2.Models.DTOs
+﻿namespace YZAERU_SG1_21_22_2.Models.DTOs
 {
     public class FilmDTO
     {
-        public int Id;
+        public int Id { get; set; }
 
-        public string Title;
+        public string Title { get; set; }
 
-        public int Lenght;
+        public int Length { get; set; }
 
-        public int DirectorId;
+        public int DirectorId { get; set; }
     }
 }

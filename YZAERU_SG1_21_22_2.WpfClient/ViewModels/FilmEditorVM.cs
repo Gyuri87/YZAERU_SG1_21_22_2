@@ -1,5 +1,7 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
+using System.Collections.Generic;
+using System.Linq;
 using YZAERU_SG1_21_22_2.WpfClient.BL.Interfaces;
 using YZAERU_SG1_21_22_2.WpfClient.Models;
 
@@ -15,23 +17,23 @@ namespace YZAERU_SG1_21_22_2.WpfClient.ViewModels
             set
             {
                 Set(ref currentFilm, value);
-                //SelectedBrand = AvailableBrands?.SingleOrDefault(x => x.Id == currentFilm.Id);
+                SelectedDirector = AvailableDirectors?.SingleOrDefault(x => x.Id == currentFilm.DirectorId);
             }
         }
 
-        //private BrandModel brandModel;
+        private DirectorModel directorModel;
 
-        //public BrandModel SelectedBrand
-        //{
-        //    get { return brandModel; }
-        //    set
-        //    {
-        //        Set(ref brandModel, value);
-        //        currentFilm.BrandId = brandModel?.Id ?? 0;
-        //    }
-        //}
+        public DirectorModel SelectedDirector
+        {
+            get { return directorModel; }
+            set
+            {
+                Set(ref directorModel, value);
+                currentFilm.DirectorId = directorModel?.Id ?? 0;
+            }
+        }
 
-        //public IList<BrandModel> AvailableBrands { get; private set; }
+        public IList<DirectorModel> AvailableDirectors { get; private set; }
 
         private bool editEnabled;
 
@@ -47,27 +49,27 @@ namespace YZAERU_SG1_21_22_2.WpfClient.ViewModels
 
         public System.Windows.Visibility CancelButtonVisibility => EditEnabled ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
 
-        public FilmEditorVM(IFilmHandlerService carHandlerService)
+        public FilmEditorVM(IFilmHandlerService filmHandlerService)
         {
             CurrentFilm = new FilmModel();
 
-            //if (IsInDesignModeStatic)
-            //{
-            //    AvailableBrands = new List<BrandModel>()
-            //    {
-            //        new BrandModel(1, "Mazda"),
-            //        new BrandModel(2, "Opel"),
-            //        new BrandModel(3, "BMW"),
-            //    };
+            if (IsInDesignModeStatic)
+            {
+                AvailableDirectors = new List<DirectorModel>()
+                {
+                    new DirectorModel(1, "George Lucas"),
+                    new DirectorModel(2, "Steven Spielberg"),
+                    new DirectorModel(3, "Anthony Russo"),
+                };
 
-            //    SelectedBrand = AvailableBrands[1]; // Should sets the brandId too
-            //    CurrentFilm.Model = "Astra G";
-            //    CurrentFilm.Price = 1750;
-            //}
-            //else
-            //{
-            //    AvailableBrands = carHandlerService.GetAllBrands();
-            //}
+                SelectedDirector = AvailableDirectors[1]; // Should sets the brandId too
+                CurrentFilm.Title = "Start Wars";
+                CurrentFilm.Length = 120;
+            }
+            else
+            {
+                AvailableDirectors = filmHandlerService.GetAllDirectors();
+            }
         }
 
         public FilmEditorVM() : this(IsInDesignModeStatic ? null : ServiceLocator.Current.GetInstance<IFilmHandlerService>())

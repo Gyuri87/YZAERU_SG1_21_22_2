@@ -20,12 +20,12 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Models
             set { title = value; }
         }
 
-        private int lenght;
+        private int length;
 
-        public int Lenght
+        public int Length
         {
-            get { return lenght; }
-            set { lenght = value; }
+            get { return length; }
+            set { length = value; }
         }
 
         private int directorId;
@@ -44,7 +44,6 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Models
             set { directorName = value; }
         }
 
-
         public FilmModel()
         {
         }
@@ -53,7 +52,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Models
         {
             this.id = id;
             this.title = title;
-            this.lenght = lenght;
+            this.length = lenght;
             this.directorId = directorId;
             this.directorName = directorName;
         }
@@ -62,13 +61,13 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Models
         {
             this.id = film.id;
             this.title = film.title;
-            this.lenght = film.lenght;
+            this.length = film.length;
             this.directorId = film.directorId;
         }
 
         public override string ToString()
         {
-            return $"id: {id}, title: {title}, lenght: {lenght}, directorId: {directorId}, actorName: {this.directorName}";
+            return $"id: {id}, title: {title}, lenght: {length}, directorId: {directorId}";
         }
     }
 }

@@ -51,7 +51,6 @@ namespace YZAERU_SG1_21_22_2.WpfClient.ViewModels
 
                 foreach (var film in films)
                 {
-                    this.
                     Films.Add(film);
                 }
             });

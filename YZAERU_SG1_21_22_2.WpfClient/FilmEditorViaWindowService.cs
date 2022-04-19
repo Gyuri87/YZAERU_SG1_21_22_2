@@ -5,9 +5,9 @@ namespace YZAERU_SG1_21_22_2.WpfClient
 {
     public class FilmEditorViaWindowService : IFilmEditorService
     {
-        public FilmModel EditFilm(FilmModel car)
+        public FilmModel EditFilm(FilmModel film)
         {
-            var window = new FilmEditorWindow(car);
+            var window = new FilmEditorWindow(film);
 
             if (window.ShowDialog() == true)
             {
