@@ -1,8 +1,7 @@
-﻿using YZAERU_SG1_21_22_2.WpfClient;
-using YZAERU_SG1_21_22_2.WpfClient.BL.Interfaces;
+﻿using YZAERU_SG1_21_22_2.WpfClient.BL.Interfaces;
 using YZAERU_SG1_21_22_2.WpfClient.Models;
 
-namespace CarShop.WpfClient
+namespace YZAERU_SG1_21_22_2.WpfClient
 {
     public class FilmDisplayService : IFilmDisplayService
     {

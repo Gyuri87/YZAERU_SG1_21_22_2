@@ -1,11 +1,9 @@
-﻿using CarShop.WpfClient;
-using CommonServiceLocator;
+﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
 using YZAERU_SG1_21_22_2.WpfClient.BL.Implementation;
 using YZAERU_SG1_21_22_2.WpfClient.BL.Interfaces;
 using YZAERU_SG1_21_22_2.WpfClient.Infrastructure;
-using YZAERU_SG1_21_22_2.WpfClient.ViewModels;
 
 namespace YZAERU_SG1_21_22_2.WpfClient
 {

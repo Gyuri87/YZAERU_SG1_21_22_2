@@ -13,6 +13,7 @@ namespace YZAERU_SG1_21_22_2.Endpoint
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors();
 
             BLInitialization.InitBLServices(services);
         }
@@ -26,6 +27,12 @@ namespace YZAERU_SG1_21_22_2.Endpoint
             }
 
             app.UseRouting();
+
+            app.UseCors(x =>
+             x.AllowAnyMethod()
+              .AllowAnyHeader()
+              .SetIsOriginAllowed(origin => true)
+              .AllowCredentials());
 
             app.UseEndpoints(endpoints =>
             {

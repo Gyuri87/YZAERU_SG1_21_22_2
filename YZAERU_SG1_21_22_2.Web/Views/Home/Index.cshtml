@@ -1,0 +1,281 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Film List</h1>
+
+    <div id="film-container">
+        <div class="button-container pb-3" style="text-align:center;">
+            <button class="btn btn-secondary" v-on:click="loadFilms">Load</button>
+            <button class="btn btn-success" v-on:click="createFilm">Create</button>
+            <button v-if="enabledBackToList" class="btn btn-secondary" v-on:click="backToList">Back to list</button>
+        </div>
+        <div id="content">
+            <div id="film-container">
+                <div v-if="errors.length > 0">
+                    <span v-for="msg in errors" style="color:red;font-weight:bold;">{{ msg }}</span>
+                </div>
+                <div v-if="messages.length > 0">
+                    <span v-for="msg in messages" style="color:green;">{{ msg }}</span>
+                </div>
+                <template v-if="operationMode == 0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>film id</th>
+                                <th>film címe</th>
+                                <th>film hossza</th>
+                                <th>rendező id</th>
+                                <th>rendező neve</th>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="film in films">
+                                <td>{{film.id}}</td>
+                                <td>{{film.title}}</td>
+                                <td>{{film.length}}</td>
+                                <td>{{film.directorId}}</td>
+                                <td>{{film.directorName}}</td>
+                                <td>
+                                    <button class="btn btn-info" v-on:click="viewFilm(film)">View</button>
+                                    <button class="btn btn-warning" v-on:click="editFilm(film)">Edit</button>
+                                    <button class="btn btn-danger" v-on:click="deleteFilm(film)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </template>
+                <template v-else-if="operationMode == 1">
+                    <view-component v-bind:film="selectedFilm"></view-component>
+                </template>
+                <template v-else-if="operationMode == 2">
+                    <!--Create case-->
+                    <editor-component v-on:saved="savedSuccessfully"
+                                      v-on:cancelled="operationCancelled"></editor-component>
+                </template>
+                <template v-else>
+                    <!--Edit case-->
+                    <editor-component v-bind:film="selectedFilm"
+                                      v-on:saved="savedSuccessfully"
+                                      v-on:cancelled="operationCancelled"></editor-component>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/vue/dist/vue.js"></script>
+<script src="~/lib/axios/dist/axios.js"></script>
+
+<script type="text/javascript">
+
+    const axi = axios.create({
+        baseURL: 'http://localhost:24577/api/film/'
+    });
+
+    var filmHandlerApp = new Vue({
+        el: "#film-container",
+        data: {
+            films: [],
+            selectedFilm: {},
+            operationMode: 0,
+            messages: [],
+            errors: []
+        },
+        computed: {
+            enabledBackToList() {
+                return this.operationMode != 0;
+            }
+        },
+        methods: {
+            loadFilms() {
+                axi.get('GetAll').then((response) => {
+                    this.films = response.data;
+                    console.log(response.data);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            },
+            viewFilm: function (film) {
+                this.selectedFilm = film;
+                this.operationMode = 1;
+            },
+            editFilm: function (film) {
+                this.selectedFilm = film;
+                this.operationMode = 3
+            },
+            deleteFilm: function (film) {
+                axi.delete('Delete/' + film.id).then((response) => { // Request body should not works there
+                    if (response.data.isSuccess) {
+                        this.messages.push("Film deleted successfully");
+                        this.loadFilms();
+
+                        setTimeout(() => { this.messages = []; }, 3000);
+                    } else {
+                        this.erros = response.data.messages;
+                        setTimeout(() => { this.errors = []; }, 3000);
+                    }
+                }).catch((err) => {
+                    this.errors.push('Error occured during delete.');
+                    setTimeout(() => { this.errors = []; }, 3000);
+                });
+            },
+            createFilm: function () {
+                this.operationMode = 2;
+            },
+            backToList: function () {
+                this.selectedFilm = {};
+                this.operationMode = 0;
+            },
+            savedSuccessfully(msg) {
+                this.selectedFilm = {};
+                this.messages.push(msg);
+                console.log("saved");
+                this.loadFilms();
+                this.operationMode = 0;
+
+                setTimeout(() => { this.messages = []; }, 3000);
+            },
+            operationCancelled() {
+                this.selectedFilm = {};
+                this.messages.push("The operation has been cancelled.");
+
+                console.warn("cancelled");
+                this.operationMode = 0;
+                setTimeout(() => { this.messages = []; }, 3000);
+            }
+        }
+    });
+
+    Vue.component('view-component', {
+        props: ['film'],
+        template: '#view-template'
+    });
+
+    Vue.component('editor-component', {
+        props: ['film'],
+        template: '#editor-template',
+        data: function () {
+            return {
+                innerFilm: {},
+                directors: [],
+                isEdit: false,
+                errors: []
+            };
+        },
+        methods: {
+            save() {
+                if (this.isEdit) {
+                    axi.put('Update', this.innerFilm).then(this.handleSuccess).catch((err) => {
+                        console.log(err);
+                        this.handleError(['Error occured during processing.']);
+                    });
+                }
+                else {
+                    axi.post('Create', this.innerFilm).then(this.handleSuccess).catch((err) => {
+                        console.log(err);
+                        this.handleError(['Error occured during processing.']);
+                    });
+                }
+            },
+            cancel() {
+                this.$emit('cancelled');
+            },
+            handleSuccess(response) {
+                if (response.data.isSuccess) {
+                    this.$emit('saved', this.isEdit ? "Film edited successfully" : "Film created successfully");
+                } else {
+                    this.handleError(response.data.messages);
+                }
+            },
+            handleError(errorMessages) {
+                this.errors = errorMessages;
+
+                setTimeout(() => { this.errors = []; }, 3000);
+            }
+        },
+        created: function () {
+            if (this.film != undefined) {
+                this.isEdit = true;
+                // Copy
+                this.innerFilm = {
+                    id: this.film.id,
+                    title: this.film.title,
+                    length: this.film.length,
+                    directorId: this.film.directorId,
+                    directorName: this.film.directorName
+                };
+            } else {
+                // Create new
+                this.innerfilm = {
+                    id: 0,
+                    title: '',
+                    length: 0,
+                    directorId: 0,
+                    directorName: ''
+                };
+            }
+
+            axi.get("GetAllDirectors").then((response) => {
+                this.directors = response.data;
+                console.log(this.directors);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+    });
+</script>
+
+
+<script type="text/x-template" id="view-template">
+    <div style="text-align:left" class="film-view-container">
+        <div>
+            <strong>Id</strong><br />
+            <label>{{ film.id }}</label>
+        </div>
+        <div>
+            <strong>Title</strong><br />
+            <label>{{ film.tilte }}</label>
+        </div>
+        <div>
+            <strong>Length</strong><br />
+            <label>{{ film.length }}</label>
+        </div>
+        <div>
+            <strong>Director id</strong><br />
+            <label>{{ film.directorId }}</label>
+        </div>
+        <div>
+            <strong>Director name</strong><br />
+            <label>{{ film.directorName }}</label>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-template" id="editor-template">
+    <div style="text-align:left" class="film-view-container">
+        <div v-if="errors.length > 0">
+            <span v-for="msg in errors" style="color:red;font-weight:bold;">{{ msg }}</span>
+        </div>
+        <div>
+            <strong>Directors</strong><br />
+            <select id="brand-selector" v-model="innerFilm.directorId" class="form-control">
+                <option v-for="director in directors" v-bind:value="director.id">{{ director.name }}</option>
+            </select>
+        </div>
+        <div>
+            <strong>Title</strong><br />
+            <input type="text" v-model="innerFilm.title" class="form-control" />
+        </div>
+        <div>
+            <strong>length</strong><br />
+            <input type="number" v-model.number="innerFilm.length" class="form-control" />
+        </div>
+        <div class="float-right pt-3">
+            <button class="btn btn-primary" v-on:click="save">Mentés</button>
+            <button class="btn btn-secondary" v-on:click="cancel">Mégsem</button>
+        </div>
+    </div>
+</script>
