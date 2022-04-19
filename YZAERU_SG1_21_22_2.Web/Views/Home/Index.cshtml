@@ -34,10 +34,10 @@
                         <tbody>
                             <tr v-for="film in films">
                                 <td>{{film.id}}</td>
-                                <td>{{film.title}}</td>
+                                <td class="title-cell">{{film.title}}</td>
                                 <td>{{film.length}}</td>
                                 <td>{{film.directorId}}</td>
-                                <td>{{film.directorName}}</td>
+                                <td class="director-cell">{{film.directorName}}</td>
                                 <td>
                                     <button class="btn btn-info" v-on:click="viewFilm(film)">View</button>
                                     <button class="btn btn-warning" v-on:click="editFilm(film)">Edit</button>

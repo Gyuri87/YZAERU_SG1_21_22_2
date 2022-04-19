@@ -72,7 +72,40 @@ body {
 
 .film-view-container {
     border: 1px solid black;
-    width: 50%;
+    width: 500px;
     border-radius: 20px;
     padding: 20px;
+    display: inline-block;
+}
+
+#film-container {
+    display: inline-block;
+    width:100%
+}
+#film-container table {
+    width: 100%;
+    border: solid 2px lightgray;
+}
+#film-container table thead {
+    background-color: #4fc3f7;
+    color: #040404;
+    height: 50px;
+}
+#film-container table tr td:last-child {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 5px;
+}
+.navbar-brand {
+    color: #fff !important;
+    font-weight: 300;
+}
+.title-cell {
+    text-align: left;
+}
+.navbar {
+    background-color: #4fc3f7 !important;
+    color:#ffffff;
 }
