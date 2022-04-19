@@ -11,28 +11,44 @@
         <ViewModels:MainWindowVM x:Key="VM" />
         <DataTemplate x:Key="FilmListTemplate" DataType="Models:FilmModel">
             <Grid>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
-                <Label Content="{Binding Id}" HorizontalAlignment="Center" Grid.Column="0" />
-                <Label Content="{Binding Title}" HorizontalAlignment="Center" Grid.Column="1" />
-                <Label Content="{Binding Length}" HorizontalAlignment="Center" Grid.Column="2" />
-                <Label Content="{Binding DirectorId}" HorizontalAlignment="Center" Grid.Column="3" />
-                <Label Content="{Binding DirectorName}" HorizontalAlignment="Center" Grid.Column="4" />
+                <Label Content="{Binding Id}" HorizontalAlignment="Center" Grid.Column="0"/>
+                <Label Content="{Binding Title}" HorizontalAlignment="left" Grid.Column="1"/>
+                <Label Content="{Binding Length}" HorizontalAlignment="Center" Grid.Column="2"/>
+                <Label Content="{Binding DirectorId}" HorizontalAlignment="Center" Grid.Column="3"/>
+                <Label Content="{Binding DirectorName}" HorizontalAlignment="Center" Grid.Column="4"/>
             </Grid>
         </DataTemplate>
     </Window.Resources>
     <Grid DataContext="{StaticResource VM}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
+            <RowDefinition Height="9*" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <ListBox ItemsSource="{Binding Films}" SelectedItem="{Binding CurrentFilm}" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource FilmListTemplate}" />
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+
+        <Label Content="Film id" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" Background="{x:Null}"/>
+        <Label Content="Film cím" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+        <Label Content="Film hossza" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0"/>
+        <Label Content="Rendező id" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="0"/>
+        <Label Content="Rendező neve" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="0"/>
+
+        <ListBox ItemsSource="{Binding Films}" SelectedItem="{Binding CurrentFilm}" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource FilmListTemplate}" Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="Black"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Grid.ColumnSpan="5">
             <Button Content="Load" Margin="5" MinWidth="50" Command="{Binding LoadCommand}" />
             <Button Content="View" Margin="5" MinWidth="50" Command="{Binding ViewCommand}" />
             <Button Content="Add" Margin="5" MinWidth="50" Command="{Binding AddCommand}" />
