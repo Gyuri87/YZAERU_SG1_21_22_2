@@ -54,7 +54,15 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
                     }
                     else
                     {
-                        SendMessage(operationResult.Messages.ToArray());
+                        if (operationResult.Messages != null)
+                        {
+                            SendMessage(operationResult.Messages.ToArray());
+                        }
+                        else
+                        {
+                            SendMessage("Empty form can't save!");
+                        }
+                        
                     }
                 }
                 else
@@ -113,47 +121,61 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
 
         public void ModifyFilm(IList<FilmModel> collection, FilmModel film)
         {
-            FilmModel filmToEdit = film;
-            bool operationFinished = false;
-
-            do
+            if (film != null)
             {
-                var editedFilm = editorService.EditFilm(filmToEdit);
 
-                if (editedFilm != null)
+                FilmModel filmToEdit = film;
+                bool operationFinished = false;
+
+                do
                 {
-                    var operationResult = httpService.Update(new FilmDTO()
-                    {
-                        Id = editedFilm.Id, // This prop cannot be changed
-                        Title = editedFilm.Title,
-                        Length = editedFilm.Length,
-                        DirectorId = editedFilm.DirectorId
-                    });
+                    var editedFilm = editorService.EditFilm(filmToEdit);
 
-                    filmToEdit = editedFilm;
-                    operationFinished = operationResult.IsSuccess;
-
-                    if (operationResult.IsSuccess)
+                    if (editedFilm != null)
                     {
-                        RefreshCollectionFromServer(collection);
-                        SendMessage("Film modification was successful");
+                        var operationResult = httpService.Update(new FilmDTO()
+                        {
+                            Id = editedFilm.Id, // This prop cannot be changed
+                            Title = editedFilm.Title,
+                            Length = editedFilm.Length,
+                            DirectorId = editedFilm.DirectorId
+                        });
+
+                        filmToEdit = editedFilm;
+                        operationFinished = operationResult.IsSuccess;
+
+                        if (operationResult.IsSuccess)
+                        {
+                            RefreshCollectionFromServer(collection);
+                            SendMessage("Film modification was successful");
+                        }
+                        else
+                        {
+                            SendMessage(operationResult.Messages.ToArray());
+                        }
                     }
                     else
                     {
-                        SendMessage(operationResult.Messages.ToArray());
+                        SendMessage("Film modification has cancelled");
+                        operationFinished = true;
                     }
-                }
-                else
-                {
-                    SendMessage("Film modification has cancelled");
-                    operationFinished = true;
-                }
-            } while (!operationFinished);
+                } while (!operationFinished);
+            }
+            else
+            {
+                SendMessage("No film selected!");
+            }
         }
 
         public void ViewFilm(FilmModel film)
         {
-            displayService.Display(film);
+            if (film != null) {
+                displayService.Display(film);
+            }
+            else
+            {
+                SendMessage("No film selected!");
+            }
         }
 
         public IList<DirectorModel> GetAllDirectors()
