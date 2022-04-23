@@ -47,13 +47,13 @@ namespace YZAERU_SG1_21_22_2.Repository.Context
             var director2 = new Director() { Id = 2, Name = "Steven Spielberg" };
             var director3 = new Director() { Id = 3, Name = "Anthony Russo" };
 
-            var film1 = new Film() { Id = 1, DirectorId = 1, Title = "Csillagok háborúja", Length = 121 };
-            var film2 = new Film() { Id = 2, DirectorId = 1, Title = "A Jedi visszatér", Length = 131 };
-            var film3 = new Film() { Id = 3, DirectorId = 3, Title = "Bosszúállók: Végjáték", Length = 181 };
-            var film4 = new Film() { Id = 4, DirectorId = 3, Title = "Bosszúállók: Végtelen háború", Length = 149 };
-            var film5 = new Film() { Id = 5, DirectorId = 2, Title = "Az elveszett frigyláda fosztogatói", Length = 115 };
-            var film6 = new Film() { Id = 6, DirectorId = 2, Title = "Jurassic Park", Length = 127 };
-            var film7 = new Film() { Id = 7, DirectorId = 1, Title = "Birodalom visszavág", Length = 121 };
+            var film1 = new Film() { Id = 1, DirectorId = 1, Title = "Csillagok háborúja", Length = 121, IsTheBest=true, RelaseYear=1977, Type="scifi" };
+            var film2 = new Film() { Id = 2, DirectorId = 1, Title = "A Jedi visszatér", Length = 131, IsTheBest = true, RelaseYear = 1987, Type = "scifi" };
+            var film3 = new Film() { Id = 3, DirectorId = 3, Title = "Bosszúállók: Végjáték", Length = 181, IsTheBest = false, RelaseYear = 2019, Type = "akció" };
+            var film4 = new Film() { Id = 4, DirectorId = 3, Title = "Bosszúállók: Végtelen háború", Length = 149, IsTheBest = false, RelaseYear = 2020, Type = "akció" };
+            var film5 = new Film() { Id = 5, DirectorId = 2, Title = "Az elveszett frigyláda fosztogatói", Length = 115, IsTheBest = false, RelaseYear = 1986, Type = "történelmi" };
+            var film6 = new Film() { Id = 6, DirectorId = 2, Title = "Jurassic Park", Length = 127, IsTheBest = false, RelaseYear = 1995, Type = "fantasy" };
+            var film7 = new Film() { Id = 7, DirectorId = 1, Title = "Birodalom visszavág", Length = 121, IsTheBest = true, RelaseYear = 1980, Type = "scifi" };
 
             var actor1 = new Actor() { Id = 1, Name = "Harrison Ford", Gender = "man" };
             var actor2 = new Actor() { Id = 2, Name = "Mark Hamill", Gender = "man" };

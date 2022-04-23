@@ -18,12 +18,18 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <Label Content="{Binding Id}" HorizontalAlignment="Center" Grid.Column="0"/>
                 <Label Content="{Binding Title}" HorizontalAlignment="left" Grid.Column="1"/>
                 <Label Content="{Binding Length}" HorizontalAlignment="Center" Grid.Column="2"/>
                 <Label Content="{Binding DirectorId}" HorizontalAlignment="Center" Grid.Column="3"/>
                 <Label Content="{Binding DirectorName}" HorizontalAlignment="Center" Grid.Column="4"/>
+                <Label Content="{Binding Type}" HorizontalAlignment="Center" Grid.Column="5"/>
+                <CheckBox IsChecked="{Binding IsTheBest}" HorizontalAlignment="Center" Grid.Column="6"/>
+                <Label Content="{Binding RelaseYear}" HorizontalAlignment="Center" Grid.Column="7"/>
             </Grid>
         </DataTemplate>
     </Window.Resources>
@@ -33,6 +39,9 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -46,9 +55,12 @@
         <Label Content="Film hossza" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="0"/>
         <Label Content="Rendező id" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="0"/>
         <Label Content="Rendező neve" HorizontalAlignment="Center" Grid.Column="4" Grid.Row="0"/>
+        <Label Content="Kategória" HorizontalAlignment="Center" Grid.Column="5" Grid.Row="0"/>
+        <Label Content="Sikeres volt" HorizontalAlignment="Center" Grid.Column="6" Grid.Row="0"/>
+        <Label Content="Kiadás éve" HorizontalAlignment="Center" Grid.Column="7" Grid.Row="0"/>
 
-        <ListBox ItemsSource="{Binding Films}" SelectedItem="{Binding CurrentFilm}" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource FilmListTemplate}" Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="Black"/>
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Grid.ColumnSpan="5">
+        <ListBox ItemsSource="{Binding Films}" SelectedItem="{Binding CurrentFilm}" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource FilmListTemplate}" Grid.Row="1" Grid.ColumnSpan="8" BorderBrush="Black"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Grid.ColumnSpan="8">
             <Button Content="Load" Margin="5" MinWidth="50" Command="{Binding LoadCommand}" />
             <Button Content="View" Margin="5" MinWidth="50" Command="{Binding ViewCommand}" />
             <Button Content="Add" Margin="5" MinWidth="50" Command="{Binding AddCommand}" />

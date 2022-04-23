@@ -9,5 +9,8 @@
         public int Length { get; set; }
 
         public int DirectorId { get; set; }
+        public bool IsTheBest { get; set; }
+        public string Type { get; set; }
+        public int RelaseYear { get; set; }
     }
 }

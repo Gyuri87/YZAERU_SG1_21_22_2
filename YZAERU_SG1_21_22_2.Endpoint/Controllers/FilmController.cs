@@ -91,7 +91,10 @@ namespace YZAERU_SG1_21_22_2.Endpoint.Controllers
                     Id = film.Id,
                     Title = film.Title,
                     Length = film.Length,
-                    DirectorId = film.DirectorId
+                    DirectorId = film.DirectorId,
+                    Type = film.Type,
+                    IsTheBest = film.IsTheBest,
+                    RelaseYear = film.RelaseYear
                 });
             }
             catch (Exception)
@@ -115,7 +118,10 @@ namespace YZAERU_SG1_21_22_2.Endpoint.Controllers
                     Id = film.Id,
                     Title = film.Title,
                     Length = film.Length,
-                    DirectorId = film.DirectorId
+                    DirectorId = film.DirectorId,
+                    Type = film.Type,
+                    RelaseYear = film.RelaseYear,
+                    IsTheBest = film.IsTheBest
                 });
             }
             catch (Exception ex)

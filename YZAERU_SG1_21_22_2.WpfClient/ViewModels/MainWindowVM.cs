@@ -36,11 +36,11 @@ namespace YZAERU_SG1_21_22_2.WpfClient.ViewModels
 
             if (IsInDesignMode)
             {
-                Films.Add(new FilmModel(1, "Star wars 1", 120, 2, "George Lucas"));
-                Films.Add(new FilmModel(2, "Star wars 2", 120, 2, "George Lucas"));
-                var starWars = new FilmModel(3, "Star wars 3", 120, 2, "George Lucas");
+                Films.Add(new FilmModel(1, "Star wars 1", 120, 2, "George Lucas","scifi", 1977, true));
+                Films.Add(new FilmModel(2, "Star wars 2", 120, 2, "George Lucas", "scifi", 1987, true));
+                var starWars = new FilmModel(3, "Star wars 3", 120, 2, "George Lucas", "akció", 1997, true);
                 Films.Add(starWars);
-                Films.Add(new FilmModel(4, "Star wars 4", 120, 2, "George Lucas"));
+                Films.Add(new FilmModel(4, "Star wars 4", 120, 2, "George Lucas", "akció", 2007, true));
                 CurrentFilm = starWars;
             }
 

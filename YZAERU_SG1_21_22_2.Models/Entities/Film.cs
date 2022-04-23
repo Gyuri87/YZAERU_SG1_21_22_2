@@ -26,6 +26,9 @@ namespace YZAERU_SG1_21_22_2.Models.Entities
 
         public int DirectorId { get; set; }
         public string DirectorName { get; set; }
+        public bool IsTheBest { get; set; }
+        public int RelaseYear { get; set; }
+        public string Type { get; set; }
 
         [JsonIgnore]
         [NotMapped]
@@ -37,7 +40,7 @@ namespace YZAERU_SG1_21_22_2.Models.Entities
 
         public override string ToString()
         {
-            return $"Id: {this.Id} - Title: {this.Title} - Length: {this.Length} - DirectorId: {this.DirectorId} - DirectorName: {this.Director.Name}";
+            return $"Id: {this.Id} - Title: {this.Title} - Length: {this.Length} - DirectorId: {this.DirectorId} - DirectorName: {this.Director.Name} - Relase date: {this.RelaseYear} - Type: {this.Type} - is the best movie: {this.IsTheBest}";
         }
 
         public override bool Equals(object obj)

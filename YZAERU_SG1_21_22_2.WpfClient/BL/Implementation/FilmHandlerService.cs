@@ -40,7 +40,10 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
                         Id = newFilm.Id,
                         DirectorId = newFilm.DirectorId,
                         Length = newFilm.Length,
-                        Title = newFilm.Title
+                        Title = newFilm.Title,
+                        Type = newFilm.Type,
+                        RelaseYear = newFilm.RelaseYear,
+                        IsTheBest = newFilm.IsTheBest
                     });
 
                     filmToEdit = newFilm;
@@ -115,7 +118,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
         {
             var films = httpService.GetAll<Film>();
 
-            return films.Select(x => new FilmModel(x.Id, x.Title , x.Length, x.DirectorId, x.DirectorName)).ToList();
+            return films.Select(x => new FilmModel(x.Id, x.Title , x.Length, x.DirectorId, x.DirectorName, x.Type, x.RelaseYear, x.IsTheBest)).ToList();
         }
 
 
@@ -138,7 +141,10 @@ namespace YZAERU_SG1_21_22_2.WpfClient.BL.Implementation
                             Id = editedFilm.Id, // This prop cannot be changed
                             Title = editedFilm.Title,
                             Length = editedFilm.Length,
-                            DirectorId = editedFilm.DirectorId
+                            DirectorId = editedFilm.DirectorId,
+                            Type = editedFilm.Type,
+                            IsTheBest = editedFilm.IsTheBest,
+                            RelaseYear = editedFilm.RelaseYear
                         });
 
                         filmToEdit = editedFilm;

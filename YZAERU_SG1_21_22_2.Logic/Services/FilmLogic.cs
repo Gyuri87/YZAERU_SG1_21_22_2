@@ -28,7 +28,7 @@ namespace YZAERU_SG1_21_22_2.Logic.Services
 
         public IList<Film> GetAllFilms()
         {
-            return this.filmRepository.ReadAll().Select(x => new Film() { Id = x.Id, Length = x.Length, Title = x.Title, DirectorName = x.Director.Name, DirectorId = x.DirectorId }).ToList();
+            return this.filmRepository.ReadAll().Select(x => new Film() { Id = x.Id, Length = x.Length, Title = x.Title, DirectorName = x.Director.Name, DirectorId = x.DirectorId, Type = x.Type, IsTheBest = x.IsTheBest, RelaseYear = x.RelaseYear }).ToList();
         }
 
         public Film GetOneFilm(int id)
