@@ -28,6 +28,9 @@
                                 <th>film hossza</th>
                                 <th>rendező id</th>
                                 <th>rendező neve</th>
+                                <th>Kategória</th>
+                                <th>Befutott</th>
+                                <th>Megjelenés éve</th>
                                 <td></td>
                             </tr>
                         </thead>
@@ -38,6 +41,12 @@
                                 <td>{{film.length}}</td>
                                 <td>{{film.directorId}}</td>
                                 <td class="director-cell">{{film.directorName}}</td>
+                                <td class="director-cell">{{film.type}}</td>
+                                <td class="director-cell">
+                                    <h6 v-if="film.isTheBest">Sikeres</h6>
+                                    <h6 v-else>Bukás</h6>
+                                </td>
+                                <td class="director-cell">{{film.relaseYear}}</td>
                                 <td>
                                     <button class="btn btn-info" v-on:click="viewFilm(film)">View</button>
                                     <button class="btn btn-warning" v-on:click="editFilm(film)">Edit</button>
@@ -107,7 +116,7 @@
                 this.operationMode = 3
             },
             deleteFilm: function (film) {
-                axi.delete('Delete/' + film.id).then((response) => { // Request body should not works there
+                axi.delete('Delete/' + film.id).then((response) => {
                     if (response.data.isSuccess) {
                         this.messages.push("Film deleted successfully");
                         this.loadFilms();
@@ -167,18 +176,29 @@
         },
         methods: {
             save() {
-                if (this.isEdit) {
-                    axi.put('Update', this.innerFilm).then(this.handleSuccess).catch((err) => {
-                        console.log(err);
-                        this.handleError(['Error occured during processing.']);
-                    });
+                if (
+                    this.innerFilm.title != null &&
+                    this.innerFilm.directorId != null &&
+                    this.innerFilm.length != null &&
+                    this.innerFilm.type != null &&
+                    this.innerFilm.relaseYear != null
+                ) {
+                    if (this.isEdit) {
+                        axi.put('Update', this.innerFilm).then(this.handleSuccess).catch((err) => {
+                            console.log(err);
+                            this.handleError(['Error occured during processing.']);
+                        });
+                    }
+                    else {
+                        axi.post('Create', this.innerFilm).then(this.handleSuccess).catch((err) => {
+                            console.log(err);
+                            this.handleError(['Error occured during processing.']);
+                        });
+                    }
+                } else {
+                    this.handleError(["All fields are required!"]);
                 }
-                else {
-                    axi.post('Create', this.innerFilm).then(this.handleSuccess).catch((err) => {
-                        console.log(err);
-                        this.handleError(['Error occured during processing.']);
-                    });
-                }
+                
             },
             cancel() {
                 this.$emit('cancelled');
@@ -205,7 +225,10 @@
                     title: this.film.title,
                     length: this.film.length,
                     directorId: this.film.directorId,
-                    directorName: this.film.directorName
+                    directorName: this.film.directorName,
+                    type: this.film.type,
+                    relaseYear: this.film.relaseYear,
+                    isTheBest: this.film.isTheBest,
                 };
             } else {
                 // Create new
@@ -214,7 +237,10 @@
                     title: '',
                     length: 0,
                     directorId: 0,
-                    directorName: ''
+                    directorName: '',
+                    type: '',
+                    relaseYear: 0,
+                    isTheBest: false,
                 };
             }
 
@@ -237,7 +263,7 @@
         </div>
         <div>
             <strong>Title</strong><br />
-            <label>{{ film.tilte }}</label>
+            <label>{{ film.title }}</label>
         </div>
         <div>
             <strong>Length</strong><br />
@@ -250,6 +276,18 @@
         <div>
             <strong>Director name</strong><br />
             <label>{{ film.directorName }}</label>
+        </div>
+        <div>
+            <strong>Type</strong><br />
+            <label>{{ film.type }}</label>
+        </div>
+        <div>
+            <strong>Relase year</strong><br />
+            <label>{{ film.relaseYear }}</label>
+        </div>
+        <div>
+            <strong>Is the best</strong><br />
+            <label>{{ film.isTheBest }}</label>
         </div>
     </div>
 </script>
@@ -270,8 +308,20 @@
             <input type="text" v-model="innerFilm.title" class="form-control" />
         </div>
         <div>
-            <strong>length</strong><br />
+            <strong>Length</strong><br />
             <input type="number" v-model.number="innerFilm.length" class="form-control" />
+        </div>
+        <div>
+            <strong>Type</strong><br />
+            <input type="text" v-model="innerFilm.type" class="form-control" />
+        </div>
+        <div>
+            <strong>Relase year</strong><br />
+            <input type="number" v-model.number="innerFilm.relaseYear" class="form-control" />
+        </div>
+        <div>
+            <strong>Is The best</strong><br />
+            <input type="checkbox" v-model.number="innerFilm.isTheBest" class="form-control" />
         </div>
         <div class="float-right pt-3">
             <button class="btn btn-primary" v-on:click="save">Mentés</button>
