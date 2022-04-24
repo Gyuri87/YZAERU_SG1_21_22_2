@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using System;
 
 namespace YZAERU_SG1_21_22_2.WpfClient.Models
 {
@@ -36,9 +37,9 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Models
             set { type = value; }
         }
 
-        private int relaseYear;
+        private DateTime relaseYear;
 
-        public int RelaseYear
+        public DateTime RelaseYear
         {
             get { return relaseYear; }
             set { relaseYear = value; }
@@ -73,7 +74,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient.Models
         {
         }
 
-        public FilmModel(int id, string title, int lenght, int directorId, string directorName, string type, int relaseYear, bool isTheBest )
+        public FilmModel(int id, string title, int lenght, int directorId, string directorName, string type, DateTime relaseYear, bool isTheBest )
         {
             this.id = id;
             this.title = title;

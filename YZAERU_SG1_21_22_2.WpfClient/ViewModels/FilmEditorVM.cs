@@ -1,5 +1,6 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using YZAERU_SG1_21_22_2.WpfClient.BL.Interfaces;
@@ -52,7 +53,6 @@ namespace YZAERU_SG1_21_22_2.WpfClient.ViewModels
         public FilmEditorVM(IFilmHandlerService filmHandlerService)
         {
             CurrentFilm = new FilmModel();
-
             if (IsInDesignModeStatic)
             {
                 AvailableDirectors = new List<DirectorModel>()

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using YZAERU_SG1_21_22_2.WpfClient.Models;
 using YZAERU_SG1_21_22_2.WpfClient.ViewModels;
 
@@ -16,7 +17,7 @@ namespace YZAERU_SG1_21_22_2.WpfClient
         {
             InitializeComponent();
             Film = film == null
-                ? new FilmModel()
+                ? new FilmModel() { RelaseYear = DateTime.Now }
                 : new FilmModel(film);
 
             this.enableEdit = enableEdit;

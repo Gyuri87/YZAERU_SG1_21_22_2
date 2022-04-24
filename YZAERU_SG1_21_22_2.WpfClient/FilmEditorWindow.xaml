@@ -40,7 +40,7 @@
         <TextBox Margin="3" Text="{Binding CurrentFilm.Title}" Grid.Row="1" Grid.Column="1" IsEnabled="{Binding EditEnabled}" />
         <TextBox Margin="3" Text="{Binding CurrentFilm.Length}" Grid.Row="2" Grid.Column="1" IsEnabled="{Binding EditEnabled}" />
         <TextBox Margin="3" Text="{Binding CurrentFilm.Type}" Grid.Row="3" Grid.Column="1" IsEnabled="{Binding EditEnabled}" />
-        <TextBox Margin="3" Text="{Binding CurrentFilm.RelaseYear}" Grid.Row="4" Grid.Column="1" IsEnabled="{Binding EditEnabled}" />
+        <DatePicker Margin="3" SelectedDate="{Binding CurrentFilm.RelaseYear }" Grid.Row="4" Grid.Column="1" IsEnabled="{Binding EditEnabled}" />
         <CheckBox Margin="3" IsChecked="{Binding CurrentFilm.IsTheBest}" Grid.Row="5" Grid.Column="1" IsEnabled="{Binding EditEnabled}" />
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Grid.Row="6" Grid.ColumnSpan="2">
