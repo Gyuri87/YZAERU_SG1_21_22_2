@@ -101,6 +101,7 @@
             loadFilms() {
                 axi.get('GetAll').then((response) => {
                     this.films = response.data;
+                    console.log(response.data);
                 }).catch((err) => {
                     console.log(err);
                 });
@@ -139,6 +140,7 @@
             savedSuccessfully(msg) {
                 this.selectedFilm = {};
                 this.messages.push(msg);
+                console.log("saved");
                 this.loadFilms();
                 this.operationMode = 0;
 
@@ -148,6 +150,7 @@
                 this.selectedFilm = {};
                 this.messages.push("The operation has been cancelled.");
 
+                console.warn("cancelled");
                 this.operationMode = 0;
                 setTimeout(() => { this.messages = []; }, 3000);
             }
@@ -215,6 +218,7 @@
         created: function () {
             if (this.film != undefined) {
                 this.isEdit = true;
+                // Copy
                 this.innerFilm = {
                     id: this.film.id,
                     title: this.film.title,
@@ -226,6 +230,7 @@
                     isTheBest: this.film.isTheBest,
                 };
             } else {
+                // Create new
                 this.innerfilm = {
                     id: 0,
                     title: '',
@@ -233,13 +238,14 @@
                     directorId: 0,
                     directorName: '',
                     type: '',
-                    relaseYear: moment().format('YYYY-MM-DD'),
+                    relaseYear: 0,
                     isTheBest: false,
                 };
             }
 
             axi.get("GetAllDirectors").then((response) => {
                 this.directors = response.data;
+                console.log(this.directors);
             }).catch((err) => {
                 console.log(err);
             });
