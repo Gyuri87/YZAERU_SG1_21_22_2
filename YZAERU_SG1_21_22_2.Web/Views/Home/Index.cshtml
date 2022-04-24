@@ -43,8 +43,7 @@
                                 <td class="director-cell">{{film.directorName}}</td>
                                 <td class="director-cell">{{film.type}}</td>
                                 <td class="director-cell">
-                                    <h6 v-if="film.isTheBest">Sikeres</h6>
-                                    <h6 v-else>Bukás</h6>
+                                    <input type="checkbox" v-model:value="film.isTheBest" disabled="disabled" />
                                 </td>
                                 <td class="director-cell">{{film.relaseYear}}</td>
                                 <td>
@@ -287,7 +286,7 @@
         </div>
         <div>
             <strong>Is the best</strong><br />
-            <label>{{ film.isTheBest }}</label>
+            <input type="checkbox" v-model:value="film.isTheBest" disabled="disabled" />
         </div>
     </div>
 </script>
